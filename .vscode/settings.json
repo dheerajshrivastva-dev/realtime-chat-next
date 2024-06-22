@@ -1,0 +1,14 @@
+{
+  "terminal.integrated.env.osx": {
+    "NVM_USE_NVM_DIR": "1",
+    "NVM_NODE_VERSION": "$(workspaceFolder)/.nvmrc" 
+  },
+  "terminal.integrated.env.linux": {
+    "NVM_USE_NVM_DIR": "1",
+    "NVM_NODE_VERSION": "$(workspaceFolder)/.nvmrc" 
+  },
+  "terminal.integrated.env.windows": {
+    "NVM_USE_NVM_DIR": "1",
+    "NVM_NODE_VERSION": "$(workspaceFolder)/.nvmrc" 
+  }
+}

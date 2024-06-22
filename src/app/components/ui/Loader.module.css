@@ -1,0 +1,35 @@
+.loader {
+  animation: loader-rotate .5s steps(12) infinite;
+  animation-play-state: paused;
+}
+
+.loader.animate {
+  animation-play-state: running;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.waveLoader {
+  width: 300px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+}
+
+.waveLoader #wave {
+  animation: wave-animation 1s linear infinite;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Key change: translateX(-100%) */
+  }
+}
