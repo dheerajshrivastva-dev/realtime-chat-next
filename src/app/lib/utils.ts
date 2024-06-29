@@ -35,3 +35,7 @@ export function isDayChanged(previousTime: number, currentTime: number): boolean
 
   return previousDate.getDate() !== currentDate.getDate();
 }
+
+export function toPusherKey(key:string) {
+  return key.replace(/:/g, '__')
+}

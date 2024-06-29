@@ -10,4 +10,9 @@ export const messageSchema = z.object({
 
 export const messageArraySchema = z.array(messageSchema);
 
-export type Message = z.infer<typeof messageSchema> 
+export type Message = z.infer<typeof messageSchema>
+
+export interface ExtendedMessage extends Message {
+  senderImage: string,
+  senderName: string,
+}
