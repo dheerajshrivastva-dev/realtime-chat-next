@@ -35,7 +35,7 @@ const MessageItem: FC<MessageItemProps> = ({
         >
           <span
             className={cn("px-4 py-2 rounded-lg inline-block", {
-              "bg-purple-600 text-white": isCurrentUserMsg,
+              "bg-pink-600 text-white": isCurrentUserMsg,
               "bg-gray-800 text-gray-200": !isCurrentUserMsg,
               "rounded-br-none":
                 !isMinuteNotChangeForSameUser && isCurrentUserMsg,
@@ -49,7 +49,7 @@ const MessageItem: FC<MessageItemProps> = ({
             </span>
           </span>
         </div>
-        <div className={cn('relative w-6 h-6', {
+        <div className={cn('relative w-6 h-6 shrink-0', {
           'order-2': isCurrentUserMsg,
           'order-1' : !isCurrentUserMsg,
           'invisible' : isMinuteNotChangeForSameUser

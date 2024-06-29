@@ -1,15 +1,17 @@
 "use client"
 
-import { FC, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Message } from '../lib/validations/message';
-import { cn, isDayChanged, isMinuteNotChanged } from '../lib/utils';
-import { formatDistanceToNow, format, isToday, isYesterday } from "date-fns"
+import { toPusherKey } from '../lib/utils';
+import { format, isToday, isYesterday } from "date-fns"
 import MessageItem from './ui/MessageItem';
 import { User } from 'next-auth';
+import { pusherClient } from '../lib/pusher';
 
 interface MessagesProps {
   initialMessages: Message[];
   sessionId: string;
+  chatId: string;
   sessionImg: string;
   partnerChatData: User;
 }
@@ -25,18 +27,29 @@ const formatDateLabel = (timestamp: number) => {
   }
 };
 
-const Messages: FC<MessagesProps> = ({initialMessages, sessionId, sessionImg, partnerChatData}) => {
+const Messages: FC<MessagesProps> = ({initialMessages, sessionId, chatId, sessionImg, partnerChatData}) => {
   const scrollDownRef = useRef<HTMLDivElement | null>(null);
   const labelRef = useRef<string>("");
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const formatTimestamp = (timestamp: number) => {
-    return formatDistanceToNow(timestamp, {
 
-    })
-  }
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`chat:${chatId}`))
 
+    const messageHandler = (msg: Message) => {
+      console.debug("msg", msg);
+      setMessages((prev) => [msg, ...prev])
+    }
+    console.debug("useeffect called")
+
+    pusherClient.bind("incoming_messages", messageHandler);
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
+      pusherClient.unbind("incoming_messages", messageHandler);
+    }
+  }, [chatId])
   return (
-    <div id="messages" className='flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-purple scrollbar-thumb-rounded scrollbar-track-purple-lighter scrollbar-w-2 scrolling-touch relative'>
+    <div id="messages" className='flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-pink scrollbar-thumb-rounded scrollbar-track-pink-lighter scrollbar-w-2 scrolling-touch relative'>
       <div ref={scrollDownRef} />
       {messages.map((message, index ) => {
         const isCurrentUserMsg = message.senderId === sessionId;

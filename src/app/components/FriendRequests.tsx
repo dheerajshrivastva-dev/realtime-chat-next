@@ -4,8 +4,10 @@ import { CheckCircle2, UserPlus2, X } from 'lucide-react';
 import { User } from 'next-auth';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Button from './ui/Button';
+import { pusherClient } from '../lib/pusher';
+import { toPusherKey } from '../lib/utils';
 
 interface FriendRequestsProps {
   initialFriendRequests: User[];
@@ -17,6 +19,23 @@ const FriendRequests: FC<FriendRequestsProps> = ({initialFriendRequests, session
   const [friendRequest, setFriendRequest] = useState<User[]>(initialFriendRequests);
   const [acceptFriendRequestLoading, setAcceptFriendRequestLoading] = useState<boolean>(false);
   const [denyFriendRequestLoading, setDenyFriendRequestLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
+
+    const friendRequestHandler = (user: User) => {
+      console.debug("user", user);
+      setFriendRequest((prev) => [...prev, user])
+    }
+    console.debug("useeffect called")
+
+    pusherClient.bind("incoming_friend_requests", friendRequestHandler);
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
+      pusherClient.unbind("incoming_friend_requests", friendRequestHandler);
+    }
+  }, [sessionId])
 
   const handleAcceptFriendRequest = async (senderId: string) => {
     if (!senderId) {
@@ -79,7 +98,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({initialFriendRequests, session
           </div>
           <Button
             area-label="accept friend request"
-            className='w-8 h-8 bg-purple-500 hover:bg-purple-700 hover:shadow-md grid place-items-center rounded-full transition p-0 m-0'
+            className='w-8 h-8 bg-pink-500 hover:bg-pink-700 hover:shadow-md grid place-items-center rounded-full transition p-0 m-0'
             onClick={() => handleAcceptFriendRequest(request?.id || "")}
             isLoading={acceptFriendRequestLoading}
           >

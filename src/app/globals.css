@@ -16,18 +16,24 @@
   }
 }
 
+@layer base {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+  }
+}
+
 .scrollbar-w-2::-webkit-scrollbar {
   width: 0.25rem;
   height:0.25rem;
 }
 
-.scrollbar-track-purple-lighter::-webkit-scrollbar-track {
+.scrollbar-track-pink-lighter::-webkit-scrollbar-track {
   --bg-opacity: a;
   background-color: #2c1031;
   background-color: rgba(44, 16, 49, var(--bg-opacity));
 }
 
-.scrollbar-thumb-purple::-webkit-scrollbar-thumb {
+.scrollbar-thumb-pink::-webkit-scrollbar-thumb {
   --bg-opacity: a;
   background-color: #33003b;
   background-color: rgba(51, 0, 59, var(--bg-opacity));

@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import { ButtonHTMLAttributes, FC } from "react";
 import Loader from "./LoaderIos";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   ` actve:scale-95
     inline-flex items-center justify-center rounded-md text-sm font-medium
     transition-color
@@ -15,8 +15,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-purple-700 text-white hover:bg-purple-600",
-        ghost: "bg-transparent hover:text-slate-900 hover:bg-purple-400",
+        default: "bg-pink-700 text-white hover:bg-pink-600",
+        ghost: "bg-transparent hover:text-slate-900 hover:bg-pink-400",
       },
       size: {
         default: "h-10 py-2 px-4",

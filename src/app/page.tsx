@@ -34,7 +34,6 @@ export default function Home() {
           <label className="w-[100px]" htmlFor="Color">Color</label>
           <TwitterPicker
             color={selectedColor}
-            id="color"
             onChangeComplete={(color : any) => setSelectedColor(color.hex)}
           />
         </div>
@@ -42,7 +41,6 @@ export default function Home() {
           <label className="w-[100px]" htmlFor="Bg-color">Bg color</label>
           <TwitterPicker
             color={selectedBgColor}
-            id="Bg-color"
             onChangeComplete={(color : any) => setSelectedBgColor(color.hex)}
           />
         </div>
