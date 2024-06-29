@@ -11,7 +11,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 16, 17, 17;
     --background-end-rgb: 0, 0, 0;
   }
 }
@@ -27,13 +27,13 @@
   height:0.25rem;
 }
 
-.scrollbar-track-pink-lighter::-webkit-scrollbar-track {
+.scrollbar-track-purple-lighter::-webkit-scrollbar-track {
   --bg-opacity: a;
   background-color: #2c1031;
   background-color: rgba(44, 16, 49, var(--bg-opacity));
 }
 
-.scrollbar-thumb-pink::-webkit-scrollbar-thumb {
+.scrollbar-thumb-purple::-webkit-scrollbar-thumb {
   --bg-opacity: a;
   background-color: #33003b;
   background-color: rgba(51, 0, 59, var(--bg-opacity));
